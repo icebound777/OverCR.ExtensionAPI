@@ -1,6 +1,7 @@
 ﻿using OverCR.ExtensionAPI.Debugging;
 using OverCR.ExtensionAPI.Filesystem;
 using OverCR.ExtensionAPI.Runtime;
+using System;
 using System.Collections.Generic;
 using static OverCR.ExtensionAPI.Filesystem.Initializer;
 
@@ -94,7 +95,16 @@ namespace OverCR.ExtensionAPI
         {
             foreach(var extension in _extensionRegistry.Values)
             {
-                extension.Update();
+                try
+                {
+                    extension.Update();
+                }
+                catch (Exception ex)
+                {
+                    SystemLog.WriteLine(Severity.Failure, "Failed to update an extension.");
+                    SystemLog.WriteLine(Severity.Failure, "Exception: ");
+                    SystemLog.WriteLine(Severity.Failure, $"{ex}");
+                }
             }
         }
     }
