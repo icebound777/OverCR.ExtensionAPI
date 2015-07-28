@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using static OverCR.ExtensionSystem.API.Filesystem.Paths;
 
 namespace OverCR.ExtensionSystem.API.Debugging
 {
@@ -10,7 +11,7 @@ namespace OverCR.ExtensionSystem.API.Debugging
             var callerName = caller.GetType().FullName;
             string msg = $"{callerName} {DateTime.Now} -> {message}";
 
-            using (var sw = new StreamWriter("extension_log.txt"))
+            using (var sw = new StreamWriter(Path.Combine(ExtensionLogDirectory, $"{callerName}.log")))
             {
                 sw.WriteLine(msg);
             }
