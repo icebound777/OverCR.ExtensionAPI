@@ -7,7 +7,7 @@ namespace OverCR.ExtensionSystem.Manager.Debugging
 {
     internal class Log
     {
-        internal string LogFileName { get; set; } = "extensionapi.log";
+        internal string LogFileName { get; set; } = "OverCR.ExtensionSystem.Manager.log";
         internal bool LoggingEnabled { get; set; } = true;
 
         internal void WriteLine(Severity severity, string message)
@@ -35,7 +35,7 @@ namespace OverCR.ExtensionSystem.Manager.Debugging
 
             var messageToWrite = $"{prefix} {DateTime.Now} -> {message}";
 
-            using(var sw = new StreamWriter($"{ExtensionSystemRoot}/{LogFileName}", true))
+            using(var sw = new StreamWriter($"{ExtensionLogDirectory}/{LogFileName}", true))
             {
                 lock(LogFileName)
                 {
