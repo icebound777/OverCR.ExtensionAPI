@@ -1,5 +1,6 @@
 ﻿using OverCR.ExtensionSystem.Manager.Debugging;
 using System.Collections.Generic;
+using System.Linq;
 using static System.IO.Directory;
 
 namespace OverCR.ExtensionSystem.Manager.Filesystem
@@ -17,15 +18,8 @@ namespace OverCR.ExtensionSystem.Manager.Filesystem
 
         internal List<string> Scan()
         {
-            var list = new List<string>();
-
             ExtensionManager.SystemLog.WriteLine(Severity.Information, "Extension scan in progress...");
-            foreach(var file in GetFiles(_directoryPath, FileTemplate))
-            {
-                list.Add(file);
-            }
-
-            return list;
+            return GetFiles(_directoryPath, FileTemplate).ToList();
         }
     }
 }

@@ -67,7 +67,7 @@ namespace OverCR.ExtensionSystem.Manager
             SystemLog.WriteLine(Severity.Information, "Waking up all loaded extensions...");
             foreach (var extension in ExtensionRegistry?.Values)
             {
-                extension.WakeUp();
+                extension.WakeUp(this);
             }
         }
 
