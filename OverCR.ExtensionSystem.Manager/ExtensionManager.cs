@@ -8,7 +8,7 @@ using static OverCR.ExtensionSystem.Manager.Filesystem.Initializer;
 
 namespace OverCR.ExtensionSystem.Manager
 {
-    public class ExtensionManager
+    public class ExtensionManager : IManager
     {
         internal static Log SystemLog { get; private set; }
 
@@ -16,11 +16,9 @@ namespace OverCR.ExtensionSystem.Manager
         private ExtensionLoader _extensionLoader;
 
         private List<string> _extensionPathList;
-        private Dictionary<string, IExtension> _extensionRegistry;
 
-        // Executed on activation of ExtensionManager instance in Distance's GameManager.ctor
-        // See above Instance property for the idea.
-        //
+        public Dictionary<string, IExtension> ExtensionRegistry { get; private set; }
+
         public ExtensionManager()
         {
             if (InitializationRequired())
@@ -35,7 +33,7 @@ namespace OverCR.ExtensionSystem.Manager
             ScanForExtensions();
             TryLoadExtensions();
 
-            if (_extensionRegistry == null)
+            if (ExtensionRegistry == null)
                 return;
 
             WakeUpExtensions();
@@ -55,19 +53,19 @@ namespace OverCR.ExtensionSystem.Manager
             {
                 SystemLog.WriteLine(Severity.Success, $"Extension scan finished. Found {_extensionPathList.Count} extensions.");
                 _extensionLoader = new ExtensionLoader(_extensionPathList);
-                _extensionRegistry = _extensionLoader.LoadAll();
+                ExtensionRegistry = _extensionLoader.LoadAll();
             }
             else
             {
                 SystemLog.WriteLine(Severity.Information, "Extension scan finished. No extensions found.");
-                _extensionRegistry = null;
+                ExtensionRegistry = null;
             }
         }
 
         private void WakeUpExtensions()
         {
             SystemLog.WriteLine(Severity.Information, "Waking up all loaded extensions...");
-            foreach (var extension in _extensionRegistry.Values)
+            foreach (var extension in ExtensionRegistry.Values)
             {
                 extension.WakeUp();
             }
@@ -77,7 +75,7 @@ namespace OverCR.ExtensionSystem.Manager
         //
         private void UpdateExtensions()
         {
-            foreach(var extension in _extensionRegistry.Values)
+            foreach(var extension in ExtensionRegistry.Values)
             {
                 try
                 {
