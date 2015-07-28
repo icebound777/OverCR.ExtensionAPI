@@ -21,14 +21,14 @@ namespace OverCR.ExtensionSystem.Manager
 
         public ExtensionManager()
         {
+            SystemLog = new Log();
+            SystemLog.WriteLine(Severity.Information, "OverCR Distance Extension API initializing...");
+
             if (InitializationRequired())
             {
                 InitializeExtensionFilesystem();
                 return;
             }
-
-            SystemLog = new Log();
-            SystemLog.WriteLine(Severity.Information, "OverCR Distance Extension API initializing...");
 
             ScanForExtensions();
             TryLoadExtensions();
@@ -65,27 +65,28 @@ namespace OverCR.ExtensionSystem.Manager
         private void WakeUpExtensions()
         {
             SystemLog.WriteLine(Severity.Information, "Waking up all loaded extensions...");
-            foreach (var extension in ExtensionRegistry.Values)
+            foreach (var extension in ExtensionRegistry?.Values)
             {
                 extension.WakeUp();
             }
         }
 
-        // Called from Distance's GameManager.Update();
-        //
-        private void UpdateExtensions()
+        public void UpdateExtensions()
         {
-            foreach(var extension in ExtensionRegistry.Values)
+            if (ExtensionRegistry != null)
             {
-                try
+                foreach (var extension in ExtensionRegistry?.Values)
                 {
-                    extension.Update();
-                }
-                catch (Exception ex)
-                {
-                    SystemLog.WriteLine(Severity.Failure, "Failed to update an extension.");
-                    SystemLog.WriteLine(Severity.Failure, "Exception: ");
-                    SystemLog.WriteLine(Severity.Failure, $"{ex}");
+                    try
+                    {
+                        extension.Update();
+                    }
+                    catch (Exception ex)
+                    {
+                        SystemLog.WriteLine(Severity.Failure, "Failed to update an extension.");
+                        SystemLog.WriteLine(Severity.Failure, "Exception: ");
+                        SystemLog.WriteLine(Severity.Failure, $"{ex}");
+                    }
                 }
             }
         }
