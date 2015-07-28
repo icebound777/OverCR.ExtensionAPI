@@ -8,10 +8,10 @@ namespace OverCR.ExtensionSystem.API.Debugging
     {
         public static void WriteLine(object caller, string message)
         {
-            var callerName = caller.GetType().FullName;
+            var callerName = caller.GetType().Namespace;
             string msg = $"{callerName} {DateTime.Now} -> {message}";
 
-            using (var sw = new StreamWriter(Path.Combine(ExtensionLogDirectory, $"{callerName}.log")))
+            using (var sw = new StreamWriter(Path.Combine(ExtensionLogDirectory, $"{callerName}.log"), true))
             {
                 sw.WriteLine(msg);
             }
