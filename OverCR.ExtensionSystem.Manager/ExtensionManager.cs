@@ -4,6 +4,7 @@ using OverCR.ExtensionSystem.Manager.Filesystem;
 using OverCR.ExtensionSystem.Manager.Runtime;
 using System;
 using System.Collections.Generic;
+using static OverCR.ExtensionSystem.API.Filesystem.Paths;
 using static OverCR.ExtensionSystem.Manager.Filesystem.Initializer;
 
 namespace OverCR.ExtensionSystem.Manager
