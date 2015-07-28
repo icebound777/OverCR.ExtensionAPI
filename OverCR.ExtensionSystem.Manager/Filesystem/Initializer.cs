@@ -11,11 +11,6 @@ namespace OverCR.ExtensionSystem.Manager.Filesystem
 
         internal static void InitializeExtensionFilesystem()
         {
-            if (!Exists(ExtensionSystemRoot))
-            {
-                CreateDirectory(ExtensionSystemRoot);
-            }
-
             if(!Exists(ExtensionDirectory))
             {
                 CreateDirectory(ExtensionDirectory);
@@ -29,7 +24,7 @@ namespace OverCR.ExtensionSystem.Manager.Filesystem
 
         internal static bool InitializationRequired()
         {
-            return !(Exists(ExtensionSystemRoot) && Exists(ExtensionDirectory) && Exists(ExtensionSettingsDirectory));
+            return !(Exists(ExtensionDirectory) && Exists(ExtensionSettingsDirectory));
         }
     }
 }
