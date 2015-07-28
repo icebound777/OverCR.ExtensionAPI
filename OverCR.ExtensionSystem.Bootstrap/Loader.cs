@@ -41,6 +41,7 @@ namespace OverCR.ExtensionSystem.Bootstrap
             catch(Exception ex)
             {
                 Console.WriteLine("OverCR: Can't update extensions");
+                Console.WriteLine(ex);
             }
         }
     }
