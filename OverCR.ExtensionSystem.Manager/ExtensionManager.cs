@@ -1,11 +1,11 @@
-﻿using OverCR.ExtensionAPI.Debugging;
-using OverCR.ExtensionAPI.Filesystem;
-using OverCR.ExtensionAPI.Runtime;
+﻿using OverCR.ExtensionSystem.Manager.Debugging;
+using OverCR.ExtensionSystem.Manager.Filesystem;
+using OverCR.ExtensionSystem.Manager.Runtime;
 using System;
 using System.Collections.Generic;
-using static OverCR.ExtensionAPI.Filesystem.Initializer;
+using static OverCR.ExtensionSystem.Manager.Filesystem.Initializer;
 
-namespace OverCR.ExtensionAPI
+namespace OverCR.ExtensionSystem.Manager
 {
     public class ExtensionManager
     {
@@ -39,14 +39,14 @@ namespace OverCR.ExtensionAPI
         //
         private ExtensionManager()
         {
-            SystemLog = new Log();
-            SystemLog.WriteLine(Severity.Information, "OverCR Distance Extension API initializing...");
-
             if (InitializationRequired())
             {
                 InitializeExtensionFilesystem();
                 return;
             }
+
+            SystemLog = new Log();
+            SystemLog.WriteLine(Severity.Information, "OverCR Distance Extension API initializing...");
 
             ScanForExtensions();
             TryLoadExtensions();

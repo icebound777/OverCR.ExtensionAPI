@@ -1,9 +1,9 @@
-﻿using OverCR.ExtensionAPI.Debugging;
+﻿using OverCR.ExtensionSystem.Manager.Debugging;
 using System.Collections.Generic;
 using System.Linq;
 using static System.IO.Directory;
 
-namespace OverCR.ExtensionAPI.Filesystem
+namespace OverCR.ExtensionSystem.Manager.Filesystem
 {
     internal class ExtensionScanner
     {
@@ -12,13 +12,13 @@ namespace OverCR.ExtensionAPI.Filesystem
 
         internal ExtensionScanner(string directoryPath)
         {
-            ExtensionManager.SystemLog.WriteLine(Severity.Information, "Preparing extension scan.", nameof(ExtensionScanner));
+            ExtensionManager.SystemLog.WriteLine(Severity.Information, "Preparing extension scan.");
             _directoryPath = directoryPath;
         }
 
         internal List<string> Scan()
         {
-            ExtensionManager.SystemLog.WriteLine(Severity.Information, "Extension scan in progress...", nameof(ExtensionScanner));
+            ExtensionManager.SystemLog.WriteLine(Severity.Information, "Extension scan in progress...");
             return GetFiles(_directoryPath, FileTemplate).ToList();
         }
     }

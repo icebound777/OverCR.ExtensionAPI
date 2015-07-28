@@ -1,4 +1,4 @@
-﻿namespace OverCR.ExtensionAPI.Debugging
+﻿namespace OverCR.ExtensionSystem.Manager.Debugging
 {
     internal enum Severity
     {

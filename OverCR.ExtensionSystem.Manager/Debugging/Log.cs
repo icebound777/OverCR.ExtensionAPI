@@ -1,16 +1,16 @@
 ﻿using System;
 using System.IO;
-using static OverCR.ExtensionAPI.Debugging.Severity;
-using static OverCR.ExtensionAPI.Filesystem.Initializer;
+using static OverCR.ExtensionSystem.Manager.Debugging.Severity;
+using static OverCR.ExtensionSystem.Manager.Filesystem.Initializer;
 
-namespace OverCR.ExtensionAPI.Debugging
+namespace OverCR.ExtensionSystem.Manager.Debugging
 {
     internal class Log
     {
         internal string LogFileName { get; set; } = "extensionapi.log";
         internal bool LoggingEnabled { get; set; } = true;
 
-        internal void WriteLine(Severity severity, string message, string owner = "ExtensionAPI")
+        internal void WriteLine(Severity severity, string message)
         {
             var prefix = "[...]";
 
@@ -33,7 +33,7 @@ namespace OverCR.ExtensionAPI.Debugging
                     break;
             }
 
-            var messageToWrite = $"{prefix} {DateTime.Now} {owner} -> {message}";
+            var messageToWrite = $"{prefix} {DateTime.Now} -> {message}";
 
             using(var sw = new StreamWriter($"{ExtensionSystemRoot}/{LogFileName}", true))
             {
