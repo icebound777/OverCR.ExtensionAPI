@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
+using static OverCR.ExtensionSystem.API.Filesystem.Paths;
 using static OverCR.ExtensionSystem.Manager.Debugging.Severity;
-using static OverCR.ExtensionSystem.Manager.Filesystem.Initializer;
 
 namespace OverCR.ExtensionSystem.Manager.Debugging
 {
