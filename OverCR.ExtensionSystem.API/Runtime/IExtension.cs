@@ -6,7 +6,7 @@
         string Author { get; }
         string Contact { get; }
 
-        void WakeUp();
+        void WakeUp(IManager manager);
         void Update();
     }
 }
