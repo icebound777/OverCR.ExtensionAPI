@@ -1,4 +1,4 @@
-﻿namespace OverCR.ExtensionSystem.Manager.Runtime
+﻿namespace OverCR.ExtensionSystem.API.Runtime
 {
     public interface IExtension
     {

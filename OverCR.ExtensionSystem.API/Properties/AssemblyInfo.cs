@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OverCR.ExtensionSystem.Manager")]
-[assembly: AssemblyDescription("OverCR Distance Extension System Manager")]
+[assembly: AssemblyTitle("OverCR.ExtensionSystem.API")]
+[assembly: AssemblyDescription("OverCR Distance Extension System API")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("OverCR solutions")]
-[assembly: AssemblyProduct("OverCR.ExtensionSystem.Manager")]
+[assembly: AssemblyCompany("OverCR Solutions")]
+[assembly: AssemblyProduct("OverCR.ExtensionSystem.API")]
 [assembly: AssemblyCopyright("Copyright © OverCR 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1351afab-6959-43ed-b511-5a6abab753c7")]
+[assembly: Guid("ace7851f-cc2d-4ce8-aca9-996e8dc09268")]
 
 // Version information for an assembly consists of the following four values:
 //

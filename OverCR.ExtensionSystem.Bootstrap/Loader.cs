@@ -21,10 +21,7 @@ namespace OverCR.ExtensionSystem.Bootstrap
                 {
                     if (type.FullName == "OverCR.ExtensionSystem.Manager.ExtensionManager")
                     {
-                        ExtensionManager = type.GetProperty(
-                            "Instance",
-                            BindingFlags.Static | BindingFlags.Public | BindingFlags.FlattenHierarchy
-                        ).GetValue(null, null);
+                        ExtensionManager = Activator.CreateInstance(type);
                     }
                     break;
                 }

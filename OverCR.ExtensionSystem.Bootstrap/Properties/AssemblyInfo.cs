@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OverCR.ExtensionSystem.Bootstrap")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("OverCR Distance Extension System Bootstrap Loader")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("OverCR Solutions")]
 [assembly: AssemblyProduct("OverCR.ExtensionSystem.Bootstrap")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCopyright("Copyright © OverCR 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

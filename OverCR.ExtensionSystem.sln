@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverCR.ExtensionSystem.Boot
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverCR.ExtensionSystem.Manager", "OverCR.ExtensionSystem.Manager\OverCR.ExtensionSystem.Manager.csproj", "{1351AFAB-6959-43ED-B511-5A6ABAB753C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverCR.ExtensionSystem.API", "OverCR.ExtensionSystem.API\OverCR.ExtensionSystem.API.csproj", "{ACE7851F-CC2D-4CE8-ACA9-996E8DC09268}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1351AFAB-6959-43ED-B511-5A6ABAB753C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1351AFAB-6959-43ED-B511-5A6ABAB753C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1351AFAB-6959-43ED-B511-5A6ABAB753C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACE7851F-CC2D-4CE8-ACA9-996E8DC09268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACE7851F-CC2D-4CE8-ACA9-996E8DC09268}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACE7851F-CC2D-4CE8-ACA9-996E8DC09268}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACE7851F-CC2D-4CE8-ACA9-996E8DC09268}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

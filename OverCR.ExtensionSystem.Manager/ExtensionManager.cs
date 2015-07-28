@@ -1,4 +1,5 @@
-﻿using OverCR.ExtensionSystem.Manager.Debugging;
+﻿using OverCR.ExtensionSystem.API.Runtime;
+using OverCR.ExtensionSystem.Manager.Debugging;
 using OverCR.ExtensionSystem.Manager.Filesystem;
 using OverCR.ExtensionSystem.Manager.Runtime;
 using System;
@@ -11,33 +12,16 @@ namespace OverCR.ExtensionSystem.Manager
     {
         internal static Log SystemLog { get; private set; }
 
-        private static ExtensionManager _extensionManager;
-        private static readonly object Lock = null;
-
         private ExtensionScanner _extensionScanner;
         private ExtensionLoader _extensionLoader;
 
         private List<string> _extensionPathList;
         private Dictionary<string, IExtension> _extensionRegistry;
 
-        // Singleton pattern - required here, because Unity tends to call constructors twice.
-        // And then there can be a strange behavior of two extension managers running in parallel. This is not good.
-        //
-        public static ExtensionManager Instance
-        {
-            get
-            {
-                lock (Lock)
-                {
-                    return _extensionManager ?? (_extensionManager = new ExtensionManager());
-                }
-            }
-        }
-
         // Executed on activation of ExtensionManager instance in Distance's GameManager.ctor
         // See above Instance property for the idea.
         //
-        private ExtensionManager()
+        public ExtensionManager()
         {
             if (InitializationRequired())
             {
