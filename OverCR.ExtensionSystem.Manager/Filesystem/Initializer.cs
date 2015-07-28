@@ -16,11 +16,16 @@ namespace OverCR.ExtensionSystem.Manager.Filesystem
             {
                 CreateDirectory(ExtensionSettingsDirectory);
             }
+
+            if(!Exists(ExtensionLogDirectory))
+            {
+                CreateDirectory(ExtensionLogDirectory);
+            }
         }
 
         internal static bool InitializationRequired()
         {
-            return !(Exists(ExtensionDirectory) && Exists(ExtensionSettingsDirectory));
+            return !(Exists(ExtensionDirectory) && Exists(ExtensionSettingsDirectory) && Exists(ExtensionLogDirectory));
         }
     }
 }
