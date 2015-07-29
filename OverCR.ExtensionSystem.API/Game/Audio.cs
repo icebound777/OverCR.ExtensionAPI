@@ -35,12 +35,42 @@
 
         public static void NextCustomMusicTrack()
         {
+            bool toggled = false;
+
+            if (_repeatCustomMusic)
+            {
+                ToggleRepeat();
+                toggled = true;
+            } 
+
+            // Above and below the next line is required, because
+            // Distance playlist doesn't work as one would expect.
+            // If looping is enabled, incrementation just loops 
+            // around one single ID.
+            //
+            // Because one wants a consistent music player behavior
+            // I needed to do this toggle-fu.
+            //
             G.Sys.AudioManager_.IncrementCustomMusic(1, _repeatCustomMusic);
+
+            if(toggled)
+                ToggleRepeat();
         }
 
         public static void PreviousCustomMusicTrack()
         {
+            bool toggled = false;
+
+            if (_repeatCustomMusic)
+            {
+                ToggleRepeat();
+                toggled = true;
+            }
+
             G.Sys.AudioManager_.IncrementCustomMusic(-1, _repeatCustomMusic);
+
+            if (toggled)
+                ToggleRepeat();
         }
     }
 }
