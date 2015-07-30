@@ -48,6 +48,7 @@
     <Compile Include="Filesystem\Paths.cs" />
     <Compile Include="Game\Audio.cs" />
     <Compile Include="Game\GUI\Watermark.cs" />
+    <Compile Include="Game\Vehicle\FloatingHUD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Runtime\IExtension.cs" />
     <Compile Include="Runtime\IManager.cs" />
