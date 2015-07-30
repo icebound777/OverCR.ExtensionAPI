@@ -8,6 +8,8 @@ namespace OverCR.ExtensionSystem.API.Game.GUI
 
         static Watermark()
         {
+            // UNSTABLE: GameObject may be removed or renamed in the future!
+            //
             _watermarkComponent = GameObject.Find("AlphaVersion").GetComponent<UILabel>();
         }
 
