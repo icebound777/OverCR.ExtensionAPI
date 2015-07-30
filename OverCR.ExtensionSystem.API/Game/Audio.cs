@@ -3,10 +3,22 @@
     public static class Audio
     {
         private static bool _repeatCustomMusic;
+        private static bool _shuffleCustomMusic;
 
         public static bool CustomMusicEnabled
         {
             get { return G.Sys.AudioManager_.CurrentMusicState_ == AudioManager.MusicState.CustomMusic; }
+        }
+
+        public static string CurrentCustomMusicDirectory
+        {
+            get { return G.Sys.AudioManager_.CurrentCustomMusicDirectory_; }
+            set { G.Sys.AudioManager_.SetCustomMusicDirectory(value); }
+        }
+
+        public static string CurrentCustomSongPath
+        {
+            get { return G.Sys.AudioManager_.CurrentCustomSongPath_; }
         }
 
         public static void EnableCustomMusic()
@@ -31,6 +43,12 @@
             _repeatCustomMusic = !_repeatCustomMusic;
             G.Sys.AudioManager_.SetLoopCustomTrack(_repeatCustomMusic);
             G.Sys.OptionsManager_.Audio_.LoopTrackCustomMusic_ = _repeatCustomMusic;
+        }
+
+        public static void ToggleShuffle()
+        {
+            _shuffleCustomMusic = !_shuffleCustomMusic;
+            G.Sys.AudioManager_.SetRandomizeTracks(_shuffleCustomMusic);
         }
 
         public static void NextCustomMusicTrack()
@@ -71,6 +89,18 @@
 
             if (toggled)
                 ToggleRepeat();
+        }
+
+        // BUG: Not working in 3770 (they broke it)
+        public static void EnableBoomboxMode()
+        {
+            G.Sys.OptionsManager_.General_.BoomBoxMode_ = true;
+        }
+
+        // BUG: Not working in 3770 (they broke it)
+        public static void DisableBoomboxMode()
+        {
+            G.Sys.OptionsManager_.General_.BoomBoxMode_ = false;
         }
     }
 }
