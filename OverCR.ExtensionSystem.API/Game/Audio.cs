@@ -16,9 +16,19 @@
             set { G.Sys.AudioManager_.SetCustomMusicDirectory(value); }
         }
 
+        public static string CurrentCustomSongName
+        {
+            get { return G.Sys.AudioManager_.CurrentCustomSong_; }
+        }
+
         public static string CurrentCustomSongPath
         {
             get { return G.Sys.AudioManager_.CurrentCustomSongPath_; }
+        }
+
+        public static bool RepeatEnabled
+        {
+            get { return _repeatCustomMusic; }
         }
 
         public static void EnableCustomMusic()
