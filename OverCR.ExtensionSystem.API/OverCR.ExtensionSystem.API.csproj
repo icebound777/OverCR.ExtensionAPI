@@ -52,6 +52,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Runtime\IExtension.cs" />
     <Compile Include="Runtime\IManager.cs" />
+    <Compile Include="Runtime\Version.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
