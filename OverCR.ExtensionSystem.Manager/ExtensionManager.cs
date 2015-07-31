@@ -3,6 +3,7 @@ using OverCR.ExtensionSystem.Manager.Debugging;
 using OverCR.ExtensionSystem.Manager.Filesystem;
 using OverCR.ExtensionSystem.Manager.Runtime;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using static OverCR.ExtensionSystem.API.Filesystem.Paths;
 using static OverCR.ExtensionSystem.Manager.Filesystem.Initializer;
@@ -22,6 +23,8 @@ namespace OverCR.ExtensionSystem.Manager
 
         public ExtensionManager()
         {
+            ClearAllLogs();
+
             SystemLog = new Log();
             SystemLog.WriteLine(Severity.Information, "OverCR Distance Extension API initializing...");
 
@@ -40,6 +43,14 @@ namespace OverCR.ExtensionSystem.Manager
             WakeUpExtensions();
 
             SystemLog.WriteLine(Severity.Information, "Extension initialization complete.");
+        }
+
+        private void ClearAllLogs()
+        {
+            foreach(var path in Directory.GetFiles(ExtensionLogDirectory))
+            {
+                File.Delete(path);
+            }
         }
 
         private void ScanForExtensions()
