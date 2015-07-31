@@ -52,7 +52,7 @@ namespace OverCR.ExtensionSystem.API.Configuration
                 var statement = trimmed.Split('=');
 
                 var key = statement[0];
-                statement.RemoveAt(0);
+                statement = statement.RemoveAt(0);
 
                 var value = string.Join("", statement);
 
