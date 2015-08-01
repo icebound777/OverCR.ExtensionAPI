@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using static OverCR.ExtensionSystem.API.Filesystem.Paths;
 
 namespace OverCR.ExtensionSystem.API.Configuration
@@ -10,6 +7,24 @@ namespace OverCR.ExtensionSystem.API.Configuration
     public class Settings : Dictionary<string, string>
     {
         private object _owner;
+
+        public new string this[string key]
+        {
+            get
+            {
+                if (ContainsKey(key))
+                    return base[key];
+                else
+                    return string.Empty;
+            }
+            set
+            {
+                if (ContainsKey(key))
+                    base[key] = value;
+                else
+                    Add(key, value);
+            }
+        }
 
         public Settings() { }
 
