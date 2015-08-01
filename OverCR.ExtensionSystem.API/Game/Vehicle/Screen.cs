@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -40,6 +41,27 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
                 return;
 
             _carScreenLogic.ClearDecodeText();
+        }
+
+        public static void Glitch(float intensity, float duration, bool noiseOnly)
+        {
+            DetectCarObject();
+            if (!CarScreenPresent())
+                return;
+
+            _carScreenLogic.GlitchCarScreen(intensity, duration, noiseOnly);
+        }
+
+        public static void WriteTimerText(string text, string color, float duration)
+        {
+            Color col;
+            Color.TryParseHexString(color, out col);
+
+            _carScreenLogic?.timeWidget_.SetTimeText(
+                text, 
+                (col == null ? Color.white : col), 
+                duration
+            );
         }
 
         private static void DetectCarObject()
