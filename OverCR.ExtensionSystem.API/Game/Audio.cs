@@ -2,8 +2,16 @@
 {
     public static class Audio
     {
+        public delegate void MusicChangedEventHandler(string newTrackName);
+        public static event MusicChangedEventHandler MusicChanged;
+
         private static bool _repeatCustomMusic;
         private static bool _shuffleCustomMusic;
+
+        static Audio()
+        {
+            Events.CustomMusicChanged.Subscribe(OnCustomMusicChanged);
+        }
 
         public static bool CustomMusicEnabled
         {
@@ -19,6 +27,7 @@
         public static string CurrentCustomSongName
         {
             get { return G.Sys.AudioManager_.CurrentCustomSong_; }
+            set { G.Sys.AudioManager_.SetCustomTrackName(value); }
         }
 
         public static string CurrentCustomSongPath
@@ -111,6 +120,11 @@
         public static void DisableBoomboxMode()
         {
             G.Sys.OptionsManager_.General_.BoomBoxMode_ = false;
+        }
+
+        private static void OnCustomMusicChanged(Events.CustomMusicChanged.Data data)
+        {
+            MusicChanged?.Invoke(data.newTrackName_);
         }
     }
 }
