@@ -8,5 +8,6 @@
 
         void WakeUp(IManager manager);
         void Update();
+        void Shutdown();
     }
 }

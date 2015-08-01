@@ -7,6 +7,7 @@ using System.IO;
 using System.Collections.Generic;
 using static OverCR.ExtensionSystem.API.Filesystem.Paths;
 using static OverCR.ExtensionSystem.Manager.Filesystem.Initializer;
+using UnityEngine;
 
 namespace OverCR.ExtensionSystem.Manager
 {
@@ -41,6 +42,8 @@ namespace OverCR.ExtensionSystem.Manager
                 return;
 
             WakeUpExtensions();
+
+            Events.Game.QuitGame.Subscribe(ShutdownExtensions);
 
             SystemLog.WriteLine(Severity.Information, "Extension initialization complete.");
         }
@@ -86,6 +89,23 @@ namespace OverCR.ExtensionSystem.Manager
                 catch(Exception ex)
                 {
                     SystemLog.WriteLine(Severity.Failure, $"{extension.Name} failed to wake up.");
+                    SystemLog.WriteLine(Severity.Failure, $"{ex}");
+                }
+            }
+        }
+
+        private void ShutdownExtensions(Events.Game.QuitGame.Data data)
+        {
+            SystemLog.WriteLine(Severity.Information, "Shutting down all loaded extensions...");
+            foreach(var extension in ExtensionRegistry?.Values)
+            {
+                try
+                {
+                    extension.Shutdown();
+                }
+                catch(Exception ex)
+                {
+                    SystemLog.WriteLine(Severity.Failure, $"{extension.Name} has thrown an exception while shutting down.");
                     SystemLog.WriteLine(Severity.Failure, $"{ex}");
                 }
             }
