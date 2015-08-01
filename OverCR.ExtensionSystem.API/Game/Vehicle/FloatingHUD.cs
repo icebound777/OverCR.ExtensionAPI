@@ -31,7 +31,18 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
 
         public static void Show()
         {
-            
+            DetectCarObject();
+
+            if(!_hoverScreenEmitter.enabled)
+                _hoverScreenEmitter.enabled = true;
+        }
+
+        public static void Hide()
+        {
+            DetectCarObject();
+
+            if (_hoverScreenEmitter.enabled)
+                _hoverScreenEmitter.enabled = false;
         }
     }
 }
