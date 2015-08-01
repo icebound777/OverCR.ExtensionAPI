@@ -3,7 +3,7 @@
     public static class Audio
     {
         public delegate void MusicChangedEventHandler(string newTrackName);
-        public static event MusicChangedEventHandler MusicChanged;
+        public static event MusicChangedEventHandler CustomMusicChanged;
 
         private static bool _repeatCustomMusic;
         private static bool _shuffleCustomMusic;
@@ -124,7 +124,7 @@
 
         private static void OnCustomMusicChanged(Events.CustomMusicChanged.Data data)
         {
-            MusicChanged?.Invoke(data.newTrackName_);
+            CustomMusicChanged?.Invoke(data.newTrackName_);
         }
     }
 }
