@@ -16,20 +16,18 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
             DetectCarObject();
         }
 
-        public static void WriteText(string text, float speed = 0.10f, float clearDelay = 1.0f, float displayDelay = 0.0f, bool clearOnFinish = true, string timeBarText = "")
+        public static void WriteText(string text, float speed = 0.10f, int clearDelayUnits = 10, float displayDelay = 0.0f, bool clearOnFinish = true, string timeBarText = "")
         {
             DetectCarObject();
 
+            if (!CarScreenPresent())
+                return;
+
             var wrappedForScreen = Regex.Replace(text, $"\\w.{{{ScreenColumns}}}", "$0\n");
 
-            if(speed != 0.0f)
-            {  
-                var quotient = clearDelay / speed;
-
-                for(var i = 0.0f; i <= quotient; i += speed)
-                {
-                    wrappedForScreen += " ";
-                }
+            for(var i = 1; i <= clearDelayUnits; i++)
+            {
+                wrappedForScreen += " ";
             }
 
             _carScreenLogic.DecodeText(wrappedForScreen, speed, displayDelay, clearOnFinish, timeBarText);
@@ -38,6 +36,8 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
         public static void Clear()
         {
             DetectCarObject();
+            if (!CarScreenPresent())
+                return;
 
             _carScreenLogic.ClearDecodeText();
         }
@@ -49,6 +49,11 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
 
             if (_carScreenLogic == null)
                 _carScreenLogic = _localScreenGroupObject?.GetComponent<CarScreenLogic>();
+        }
+
+        private static bool CarScreenPresent()
+        {
+            return (_carScreenLogic != null && _localScreenGroupObject != null);
         }
     }
 }
