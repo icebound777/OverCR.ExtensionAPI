@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace OverCR.ExtensionSystem.API.Game.Vehicle
@@ -15,12 +16,23 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
             DetectCarObject();
         }
 
-        public static void WriteText(string text, float speed = 1.0f, float delay = 0.0f, bool clearOnFinish = true, string timeBarText = "")
+        public static void WriteText(string text, float speed = 0.10f, float clearDelay = 1.0f, float displayDelay = 0.0f, bool clearOnFinish = true, string timeBarText = "")
         {
             DetectCarObject();
 
             var wrappedForScreen = Regex.Replace(text, $"\\w.{{{ScreenColumns}}}", "$0\n");
-            _carScreenLogic.DecodeText(wrappedForScreen, speed, delay, clearOnFinish, timeBarText);
+
+            if(speed != 0.0f)
+            {  
+                var quotient = clearDelay / speed;
+
+                for(var i = 0.0f; i <= quotient; i += speed)
+                {
+                    wrappedForScreen += " ";
+                }
+            }
+
+            _carScreenLogic.DecodeText(wrappedForScreen, speed, displayDelay, clearOnFinish, timeBarText);
         }
 
         public static void Clear()
