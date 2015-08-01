@@ -27,7 +27,6 @@
         public static string CurrentCustomSongName
         {
             get { return G.Sys.AudioManager_.CurrentCustomSong_; }
-            set { G.Sys.AudioManager_.SetCustomTrackName(value); }
         }
 
         public static string CurrentCustomSongPath
@@ -52,9 +51,15 @@
             G.Sys.OptionsManager_.Audio_.EnableCustomMusic_ = false;
         }
 
-        public static void PlayCustomMusic()
+        public static void PlayCustomMusic(string customSongName)
         {
-            G.Sys.AudioManager_.PlayCustomMusic(G.Sys.AudioManager_.CurrentCustomSongPath_);
+            if(FileEx.Exists($"{CurrentCustomMusicDirectory}/{customSongName}"))
+            {
+                while(CurrentCustomSongName != customSongName)
+                {
+                    NextCustomMusicTrack();
+                }
+            }
         }
 
         public static void ToggleRepeat()
