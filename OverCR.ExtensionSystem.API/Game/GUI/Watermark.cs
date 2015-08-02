@@ -6,6 +6,18 @@ namespace OverCR.ExtensionSystem.API.Game.GUI
     {
         private static UILabel _watermarkComponent;
 
+        public static bool Enabled
+        {
+            get
+            {
+                return _watermarkComponent.enabled;
+            }
+            set
+            {
+                _watermarkComponent.enabled = value;
+            }
+        }
+
         static Watermark()
         {
             // UNSTABLE: GameObject may be removed or renamed in the future!
