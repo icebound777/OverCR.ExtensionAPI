@@ -58,11 +58,18 @@
 
         public static void PlayCustomMusic(string customSongName)
         {
+            var retryCount = 0;
+
             if(FileEx.Exists($"{CurrentCustomMusicDirectory}/{customSongName}"))
             {
                 while(CurrentCustomSongName != customSongName)
                 {
+                    if (retryCount >= DirectoryEx.GetFiles(CurrentCustomMusicDirectory).Length)
+                        break;
+
                     NextCustomMusicTrack();
+
+                    retryCount++;
                 }
             }
         }
