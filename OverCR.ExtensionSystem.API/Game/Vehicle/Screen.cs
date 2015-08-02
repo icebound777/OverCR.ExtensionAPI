@@ -44,10 +44,12 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
 
         public static void WriteTimerText(string text, string color, float duration)
         {
+            DetectCarObject();
+
             Color col;
             Color.TryParseHexString(color, out col);
 
-            _carScreenLogic?.timeWidget_.SetTimeText(
+            _carScreenLogic?.timeWidget_?.SetTimeText(
                 text, 
                 (col == null ? Color.white : col), 
                 duration
