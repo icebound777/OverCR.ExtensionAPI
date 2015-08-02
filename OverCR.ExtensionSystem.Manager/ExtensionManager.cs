@@ -7,7 +7,8 @@ using System.IO;
 using System.Collections.Generic;
 using static OverCR.ExtensionSystem.API.Filesystem.Paths;
 using static OverCR.ExtensionSystem.Manager.Filesystem.Initializer;
-using UnityEngine;
+using OverCR.ExtensionSystem.API.Configuration;
+using OverCR.ExtensionSystem.API.Game.GUI;
 
 namespace OverCR.ExtensionSystem.Manager
 {
@@ -17,14 +18,20 @@ namespace OverCR.ExtensionSystem.Manager
 
         private ExtensionScanner _extensionScanner;
         private ExtensionLoader _extensionLoader;
+        private Settings _settings;
 
         private List<string> _extensionPathList;
+
+        private bool showWatermark = true;
+        private bool appendExtensionSystemInfo = true;
 
         public Dictionary<string, IExtension> ExtensionRegistry { get; private set; }
 
         public ExtensionManager()
         {
             ClearAllLogs();
+            LoadSettings();
+            ApplySettings();
 
             SystemLog = new Log();
             SystemLog.WriteLine(Severity.Information, "OverCR Distance Extension API initializing...");
@@ -50,10 +57,41 @@ namespace OverCR.ExtensionSystem.Manager
 
         private void ClearAllLogs()
         {
-            foreach(var path in Directory.GetFiles(ExtensionLogDirectory))
+            foreach (var path in Directory.GetFiles(ExtensionLogDirectory, "*.log"))
             {
                 File.Delete(path);
             }
+        }
+
+        private void LoadSettings()
+        {
+            _settings = Loader.RetrieveSettings(this);
+
+            if (_settings != null)
+            {
+                if (string.IsNullOrEmpty(_settings["ShowWatermark"]))
+                {
+                    _settings["ShowWatermark"] = "True";
+                    _settings.Save();
+                }
+
+                if (string.IsNullOrEmpty(_settings["AppendExtensionSystemInfo"]))
+                {
+                    _settings["AppendExtensionSystemInfo"] = "True";
+                    _settings.Save();
+                }
+
+                bool.TryParse(_settings["ShowWatermark"], out showWatermark);
+                bool.TryParse(_settings["AppendExtensionSystemInfo"], out appendExtensionSystemInfo);
+            }
+        }
+
+        private void ApplySettings()
+        {
+            Watermark.Enabled = showWatermark;
+
+            if (appendExtensionSystemInfo)
+                Watermark.Text += "\ndistance extension system active";
         }
 
         private void ScanForExtensions()
