@@ -15,18 +15,17 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
             DetectCarObject();
         }
 
-        public static void WriteText(string text, float speed = 0.10f, int clearDelayUnits = 10, float displayDelay = 0.0f, bool clearOnFinish = true, string timeBarText = "")
+        public static void WriteText(string text, float timePerChar = 0.0753f, int clearDelayUnits = 10, float displayDelay = 0.0f, bool clearOnFinish = true, string timeBarText = "")
         {
             DetectCarObject();
-            //var wrappedForScreen = Regex.Replace(text, $"\\w.{{{ScreenColumns}}}", "$0\n");
 
-            var wrappedForScreen = text.WordBreak(ScreenColumns);
+            var wrappedForScreen = text.WordWrap(ScreenColumns);
             for(var i = 1; i <= clearDelayUnits; i++)
             {
                 wrappedForScreen += " ";
             }
 
-            _carScreenLogic?.DecodeText(wrappedForScreen, speed, displayDelay, clearOnFinish, timeBarText);
+            _carScreenLogic?.DecodeText(wrappedForScreen, timePerChar, displayDelay, clearOnFinish, timeBarText);
         }
 
         public static void Clear()
