@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace OverCR.ExtensionSystem.API.Game.Vehicle
@@ -20,36 +18,29 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
         public static void WriteText(string text, float speed = 0.10f, int clearDelayUnits = 10, float displayDelay = 0.0f, bool clearOnFinish = true, string timeBarText = "")
         {
             DetectCarObject();
+            //var wrappedForScreen = Regex.Replace(text, $"\\w.{{{ScreenColumns}}}", "$0\n");
 
-            if (!CarScreenPresent())
-                return;
-
-            var wrappedForScreen = Regex.Replace(text, $"\\w.{{{ScreenColumns}}}", "$0\n");
-
+            var wrappedForScreen = text.WordBreak(ScreenColumns);
             for(var i = 1; i <= clearDelayUnits; i++)
             {
                 wrappedForScreen += " ";
             }
 
-            _carScreenLogic.DecodeText(wrappedForScreen, speed, displayDelay, clearOnFinish, timeBarText);
+            _carScreenLogic?.DecodeText(wrappedForScreen, speed, displayDelay, clearOnFinish, timeBarText);
         }
 
         public static void Clear()
         {
             DetectCarObject();
-            if (!CarScreenPresent())
-                return;
 
-            _carScreenLogic.ClearDecodeText();
+            _carScreenLogic?.ClearDecodeText();
         }
 
         public static void Glitch(float intensity, float duration, bool noiseOnly)
         {
             DetectCarObject();
-            if (!CarScreenPresent())
-                return;
 
-            _carScreenLogic.GlitchCarScreen(intensity, duration, noiseOnly);
+            _carScreenLogic?.GlitchCarScreen(intensity, duration, noiseOnly);
         }
 
         public static void WriteTimerText(string text, string color, float duration)
@@ -71,11 +62,6 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
 
             if (_carScreenLogic == null)
                 _carScreenLogic = _localScreenGroupObject?.GetComponent<CarScreenLogic>();
-        }
-
-        private static bool CarScreenPresent()
-        {
-            return (_carScreenLogic != null && _localScreenGroupObject != null);
         }
     }
 }
