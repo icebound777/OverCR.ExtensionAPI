@@ -39,6 +39,11 @@
             get { return _repeatCustomMusic; }
         }
 
+        public static bool ShuffleEnabled
+        {
+            get { return _shuffleCustomMusic; }
+        }
+
         public static void EnableCustomMusic()
         {
             G.Sys.AudioManager_.EnableCustomMusic(true);
