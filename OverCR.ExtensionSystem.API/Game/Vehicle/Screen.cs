@@ -11,12 +11,12 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
 
         static Screen()
         {
-            DetectCarObject();
+            DetectCarScreenObject();
         }
 
         public static void WriteText(string text, float timePerChar = 0.0753f, int clearDelayUnits = 10, float displayDelay = 0.0f, bool clearOnFinish = true, string timeBarText = "")
         {
-            DetectCarObject();
+            DetectCarScreenObject();
 
             var wrappedForScreen = text.WordWrap(ScreenColumns);
             for(var i = 1; i <= clearDelayUnits; i++)
@@ -29,21 +29,21 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
 
         public static void Clear()
         {
-            DetectCarObject();
+            DetectCarScreenObject();
 
             _carScreenLogic?.ClearDecodeText();
         }
 
         public static void Glitch(float intensity, float duration, bool noiseOnly)
         {
-            DetectCarObject();
+            DetectCarScreenObject();
 
             _carScreenLogic?.GlitchCarScreen(intensity, duration, noiseOnly);
         }
 
         public static void WriteTimerText(string text, string color, float duration)
         {
-            DetectCarObject();
+            DetectCarScreenObject();
 
             Color col;
             Color.TryParseHexString(color, out col);
@@ -55,7 +55,7 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
             );
         }
 
-        private static void DetectCarObject()
+        private static void DetectCarScreenObject()
         {
             if (_localScreenGroupObject == null)
                 _localScreenGroupObject = GameObject.Find("CarScreenGroup");
