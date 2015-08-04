@@ -112,6 +112,29 @@ namespace OverCR.MusicSwitcher.Extension
 
         private void Audio_CustomMusicChanged(string newTrackName)
         {
+            if(newTrackName == "[888888]No track found[-]")
+            {
+                ExtensionSystem.API.Game.Vehicle.Screen.WriteText("FAILURE:\nSelected track does not exist.");
+                ExtensionSystem.API.Game.Vehicle.Screen.WriteTimerText("music error", "FF0000", 4.5f);
+
+                return;
+            }
+
+            if(newTrackName == "[888888]Folder not found[-]")
+            {
+                ExtensionSystem.API.Game.Vehicle.Screen.WriteText("FAILURE:\nSelected music folder does not exist.");
+                ExtensionSystem.API.Game.Vehicle.Screen.WriteTimerText("music error", "FF0000", 4.5f);
+
+                return;
+            }
+
+            if(newTrackName == "[888888]Invalid characters in path[-]")
+            {
+                ExtensionSystem.API.Game.Vehicle.Screen.WriteText("FAILURE:\nPath contains invalid characters.\nVerify your path.");
+                ExtensionSystem.API.Game.Vehicle.Screen.WriteTimerText("music error", "FF0000", 4.5f);
+
+                return;
+            }
             _settings["LastMusicTrackName"] = newTrackName;
             _settings.Save();
 
