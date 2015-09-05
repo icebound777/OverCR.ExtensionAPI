@@ -1,5 +1,5 @@
-﻿using System;
 using System.Text;
+using UnityEngine;
 
 namespace OverCR.ExtensionSystem.API
 {
@@ -57,6 +57,18 @@ namespace OverCR.ExtensionSystem.API
                 i--;
 
             return i + 1;
+        }
+
+        internal static GameObject FindChild(this GameObject parentGameObject, string childName)
+        {
+            foreach(var childObject in parentGameObject.GetChildren())
+            {
+                if(childObject.name == childName)
+                {
+                    return childObject;
+                }
+            }
+            return parentGameObject;
         }
     }
 }
