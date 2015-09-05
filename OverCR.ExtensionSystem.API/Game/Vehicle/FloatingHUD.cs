@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace OverCR.ExtensionSystem.API.Game.Vehicle
 {
@@ -26,14 +26,14 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
             DetectCarObject();
 
             var trickText = new TrickyTextLogic.TrickText(time, priority, TrickyTextLogic.TrickText.TextType.standard, text, alphaScale);
-            _hoverScreenEmitter.SetTrickText(trickText);
+            _hoverScreenEmitter?.SetTrickText(trickText);
         }
 
         public static void Show()
         {
             DetectCarObject();
 
-            if(!_hoverScreenEmitter.enabled)
+            if(_hoverScreenEmitter != null && !_hoverScreenEmitter.enabled)
                 _hoverScreenEmitter.enabled = true;
         }
 
@@ -41,7 +41,7 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
         {
             DetectCarObject();
 
-            if (_hoverScreenEmitter.enabled)
+            if (_hoverScreenEmitter != null && _hoverScreenEmitter.enabled)
                 _hoverScreenEmitter.enabled = false;
         }
     }
