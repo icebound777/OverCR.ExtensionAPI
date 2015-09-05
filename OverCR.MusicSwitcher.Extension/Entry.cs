@@ -1,4 +1,4 @@
-﻿using OverCR.ExtensionSystem.API.Configuration;
+using OverCR.ExtensionSystem.API.Configuration;
 using OverCR.ExtensionSystem.API.Game;
 using OverCR.ExtensionSystem.API.Runtime;
 
@@ -39,7 +39,7 @@ namespace OverCR.MusicSwitcher.Extension
                     ExtensionSystem.API.Game.Vehicle.Screen.WriteTimerText($"repeat {(Audio.RepeatEnabled ? "on" : "off")}", "00BEAA", 2f);
                 }
 
-                if(Keyboard.GetKeyDown(_shuffleToggleKey))
+                if (Keyboard.GetKeyDown(_shuffleToggleKey))
                 {
                     Audio.ToggleShuffle();
                     ExtensionSystem.API.Game.Vehicle.Screen.WriteTimerText($"shuffle {(Audio.ShuffleEnabled ? "on" : "off")}", "00BEAA", 2f);
@@ -61,7 +61,7 @@ namespace OverCR.MusicSwitcher.Extension
                 {
                     Audio.DisableCustomMusic();
                     ExtensionSystem.API.Game.Vehicle.Screen.WriteTimerText("music disabled", "CC0000", 2f);
-                                                                       
+
                     _settings["MusicWasOn"] = "False";
                 }
                 else
@@ -102,7 +102,7 @@ namespace OverCR.MusicSwitcher.Extension
                 }
             }
 
-            if(!string.IsNullOrEmpty(_settings["LastMusicTrackName"]))
+            if (!string.IsNullOrEmpty(_settings["LastMusicTrackName"]))
             {
                 Audio.PlayCustomMusic(_settings["LastMusicTrackName"]);
             }
@@ -112,7 +112,7 @@ namespace OverCR.MusicSwitcher.Extension
 
         private void Audio_CustomMusicChanged(string newTrackName)
         {
-            if(newTrackName == "[888888]No track found[-]")
+            if (newTrackName == "[888888]No track found[-]")
             {
                 ExtensionSystem.API.Game.Vehicle.Screen.WriteText("FAILURE:\nSelected track does not exist.");
                 ExtensionSystem.API.Game.Vehicle.Screen.WriteTimerText("music error", "FF0000", 4.5f);
@@ -120,7 +120,7 @@ namespace OverCR.MusicSwitcher.Extension
                 return;
             }
 
-            if(newTrackName == "[888888]Folder not found[-]")
+            if (newTrackName == "[888888]Folder not found[-]")
             {
                 ExtensionSystem.API.Game.Vehicle.Screen.WriteText("FAILURE:\nSelected music folder does not exist.");
                 ExtensionSystem.API.Game.Vehicle.Screen.WriteTimerText("music error", "FF0000", 4.5f);
@@ -128,7 +128,7 @@ namespace OverCR.MusicSwitcher.Extension
                 return;
             }
 
-            if(newTrackName == "[888888]Invalid characters in path[-]")
+            if (newTrackName == "[888888]Invalid characters in path[-]")
             {
                 ExtensionSystem.API.Game.Vehicle.Screen.WriteText("FAILURE:\nPath contains invalid characters.\nVerify your path.");
                 ExtensionSystem.API.Game.Vehicle.Screen.WriteTimerText("music error", "FF0000", 4.5f);
