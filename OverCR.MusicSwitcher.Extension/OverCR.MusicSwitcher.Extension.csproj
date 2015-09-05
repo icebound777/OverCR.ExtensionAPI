@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OverCR.ExtensionSystem.API">
-      <HintPath>..\OverCR.ExtensionSystem.API\bin\Debug\OverCR.ExtensionSystem.API.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -53,6 +50,12 @@
     <None Include="OverCR.MusicSwitcher.Extension.cfg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OverCR.ExtensionSystem.API\OverCR.ExtensionSystem.API.csproj">
+      <Project>{ace7851f-cc2d-4ce8-aca9-996e8dc09268}</Project>
+      <Name>OverCR.ExtensionSystem.API</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
