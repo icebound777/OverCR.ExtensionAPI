@@ -8,9 +8,11 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
     {
         public delegate void CarDestroyedEventHandler(string cause);
         public delegate void CarRespawnedEventHandler(float px, float py, float pz, float rx, float ry, float rz, bool fastRespawn);
+        public delegate void CarBrokeObjectEventHandler(int objectIndex);
 
         public static event CarDestroyedEventHandler CarDestroyed;
         public static event CarRespawnedEventHandler CarRespawned;
+        public static event CarBrokeObjectEventHandler CarBrokeObject;
 
         public static float MilesPerHour
         {
@@ -58,8 +60,27 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
 
         static Local()
         {
-            Death.SubscribeAll(Car_Death);
+            BrokeObject.SubscribeAll(Car_BrokeObject);
             CarRespawn.SubscribeAll(Car_Respawn);
+            Death.SubscribeAll(Car_Death);
+        }
+
+        private static void Car_BrokeObject(GameObject sender, BrokeObject.Data data)
+        {
+            CarBrokeObject?.Invoke(data.breakableObjectIndex_);
+        }
+
+        private static void Car_Respawn(GameObject sender, CarRespawn.Data data)
+        {
+            CarRespawned?.Invoke(
+                data.position_.x,
+                data.position_.y,
+                data.position_.z,
+                data.rotation_.x,
+                data.rotation_.y,
+                data.rotation_.z,
+                data.fastRespawn_
+            );
         }
 
         private static void Car_Death(GameObject sender, Death.Data data)
@@ -88,19 +109,6 @@ namespace OverCR.ExtensionSystem.API.Game.Vehicle
                     CarDestroyed?.Invoke("unknown");
                     break;
             }
-        }
-
-        private static void Car_Respawn(GameObject sender, CarRespawn.Data data)
-        {
-            CarRespawned?.Invoke(
-                data.position_.x,
-                data.position_.y,
-                data.position_.z,
-                data.rotation_.x,
-                data.rotation_.y,
-                data.rotation_.z,
-                data.fastRespawn_
-            );
         }
     }
 }
