@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using static OverCR.ExtensionSystem.API.Filesystem.Paths;
 
@@ -6,16 +6,13 @@ namespace OverCR.ExtensionSystem.API.Configuration
 {
     public class Settings : Dictionary<string, string>
     {
-        private object _owner;
+        private readonly object _owner;
 
         public new string this[string key]
         {
             get
             {
-                if (ContainsKey(key))
-                    return base[key];
-                else
-                    return string.Empty;
+                return ContainsKey(key) ? base[key] : string.Empty;
             }
             set
             {
@@ -23,6 +20,8 @@ namespace OverCR.ExtensionSystem.API.Configuration
                     base[key] = value;
                 else
                     Add(key, value);
+
+                Save();
             }
         }
 
@@ -99,7 +98,6 @@ namespace OverCR.ExtensionSystem.API.Configuration
             {
                 Add(pair.Key, pair.Value);
             }
-            settings = null;
         }
     }
 }
