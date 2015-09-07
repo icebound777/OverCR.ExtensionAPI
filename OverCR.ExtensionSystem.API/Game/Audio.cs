@@ -1,21 +1,13 @@
-﻿namespace OverCR.ExtensionSystem.API.Game
+namespace OverCR.ExtensionSystem.API.Game
 {
     public static class Audio
     {
         public delegate void MusicChangedEventHandler(string newTrackName);
         public static event MusicChangedEventHandler CustomMusicChanged;
 
-        private static bool _repeatCustomMusic;
-        private static bool _shuffleCustomMusic;
-
         static Audio()
         {
             Events.CustomMusicChanged.Subscribe(OnCustomMusicChanged);
-        }
-
-        public static bool CustomMusicEnabled
-        {
-            get { return G.Sys.AudioManager_.CurrentMusicState_ == AudioManager.MusicState.CustomMusic; }
         }
 
         public static string CurrentCustomMusicDirectory
@@ -24,25 +16,15 @@
             set { G.Sys.AudioManager_.SetCustomMusicDirectory(value); }
         }
 
-        public static string CurrentCustomSongName
-        {
-            get { return G.Sys.AudioManager_.CurrentCustomSong_; }
-        }
+        public static string CurrentCustomSongName => G.Sys.AudioManager_.CurrentCustomSong_;
 
-        public static string CurrentCustomSongPath
-        {
-            get { return G.Sys.AudioManager_.CurrentCustomSongPath_; }
-        }
+        public static string CurrentCustomSongPath => G.Sys.AudioManager_.CurrentCustomSongPath_;
 
-        public static bool RepeatEnabled
-        {
-            get { return _repeatCustomMusic; }
-        }
+        public static bool CustomMusicEnabled => G.Sys.AudioManager_.CurrentMusicState_ == AudioManager.MusicState.CustomMusic;
 
-        public static bool ShuffleEnabled
-        {
-            get { return _shuffleCustomMusic; }
-        }
+        public static bool RepeatEnabled { get; private set; }
+
+        public static bool ShuffleEnabled { get; private set; }
 
         public static void EnableCustomMusic()
         {
@@ -76,22 +58,22 @@
 
         public static void ToggleRepeat()
         {
-            _repeatCustomMusic = !_repeatCustomMusic;
-            G.Sys.AudioManager_.SetLoopCustomTrack(_repeatCustomMusic);
-            G.Sys.OptionsManager_.Audio_.LoopTrackCustomMusic_ = _repeatCustomMusic;
+            RepeatEnabled = !RepeatEnabled;
+            G.Sys.AudioManager_.SetLoopCustomTrack(RepeatEnabled);
+            G.Sys.OptionsManager_.Audio_.LoopTrackCustomMusic_ = RepeatEnabled;
         }
 
         public static void ToggleShuffle()
         {
-            _shuffleCustomMusic = !_shuffleCustomMusic;
-            G.Sys.AudioManager_.SetRandomizeTracks(_shuffleCustomMusic);
+            ShuffleEnabled = !ShuffleEnabled;
+            G.Sys.AudioManager_.SetRandomizeTracks(ShuffleEnabled);
         }
 
         public static void NextCustomMusicTrack()
         {
             bool toggled = false;
 
-            if (_repeatCustomMusic)
+            if (RepeatEnabled)
             {
                 ToggleRepeat();
                 toggled = true;
@@ -105,7 +87,7 @@
             // Because one wants a consistent music player behavior
             // I needed to do this toggle-fu.
             //
-            G.Sys.AudioManager_.IncrementCustomMusic(1, _repeatCustomMusic);
+            G.Sys.AudioManager_.IncrementCustomMusic(1, RepeatEnabled);
 
             if(toggled)
                 ToggleRepeat();
@@ -115,25 +97,23 @@
         {
             bool toggled = false;
 
-            if (_repeatCustomMusic)
+            if (RepeatEnabled)
             {
                 ToggleRepeat();
                 toggled = true;
             }
 
-            G.Sys.AudioManager_.IncrementCustomMusic(-1, _repeatCustomMusic);
+            G.Sys.AudioManager_.IncrementCustomMusic(-1, RepeatEnabled);
 
             if (toggled)
                 ToggleRepeat();
         }
 
-        // BUG: Not working in 3770 (they broke it)
         public static void EnableBoomboxMode()
         {
             G.Sys.OptionsManager_.General_.BoomBoxMode_ = true;
         }
 
-        // BUG: Not working in 3770 (they broke it)
         public static void DisableBoomboxMode()
         {
             G.Sys.OptionsManager_.General_.BoomBoxMode_ = false;
