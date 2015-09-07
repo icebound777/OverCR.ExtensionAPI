@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 
 namespace OverCR.ExtensionSystem.API.Runtime
 {
@@ -6,23 +6,13 @@ namespace OverCR.ExtensionSystem.API.Runtime
     {
         public static class Distance
         {
-            public static int Build
-            {
-                get { return SVNRevision.number_; }
-            }
+            public static int Build => SVNRevision.number_;
         }
 
         public static class ExtensionSystem
         {
-            public static int Major
-            {
-                get { return Assembly.GetAssembly(typeof(Version)).GetName().Version.Major; }
-            }
-
-            public static int Minor
-            {
-                get { return Assembly.GetAssembly(typeof(Version)).GetName().Version.Minor; }
-            }
+            public static int Major => Assembly.GetAssembly(typeof(Version)).GetName().Version.Major;
+            public static int Minor => Assembly.GetAssembly(typeof(Version)).GetName().Version.Minor;
         }
     }
 }
