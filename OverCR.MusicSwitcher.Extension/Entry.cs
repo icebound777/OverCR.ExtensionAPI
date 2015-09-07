@@ -7,7 +7,7 @@ namespace OverCR.MusicSwitcher.Extension
     public class Entry : IExtension
     {
         public string Author { get; } = "OverCR solutions";
-        public string Contact { get; } = "[DATA ERASED]";
+        public string Contact { get; } = "overcr@outlook.com";
         public string Name { get; } = "Music Switcher";
 
         private string _prevTrackKey;
