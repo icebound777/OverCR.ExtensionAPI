@@ -1,20 +1,20 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace OverCR.ExtensionSystem.API.Game.GUI
 {
     public static class Watermark
     {
-        private static UILabel _watermarkComponent;
+        private static readonly UILabel WatermarkComponent;
 
         public static bool Enabled
         {
             get
             {
-                return _watermarkComponent.enabled;
+                return WatermarkComponent.enabled;
             }
             set
             {
-                _watermarkComponent.enabled = value;
+                WatermarkComponent.enabled = value;
             }
         }
 
@@ -22,13 +22,13 @@ namespace OverCR.ExtensionSystem.API.Game.GUI
         {
             // UNSTABLE: GameObject may be removed or renamed in the future!
             //
-            _watermarkComponent = GameObject.Find("AlphaVersion").GetComponent<UILabel>();
+            WatermarkComponent = GameObject.Find("AlphaVersion").GetComponent<UILabel>();
         }
 
         public static string Text
         {
-            get { return _watermarkComponent.text; }
-            set { _watermarkComponent.text = value; }
+            get { return WatermarkComponent.text; }
+            set { WatermarkComponent.text = value; }
         }
     }
 }
