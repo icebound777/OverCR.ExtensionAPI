@@ -1,4 +1,3 @@
-using OverCR.ExtensionSystem.API.Debugging;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,11 +6,11 @@ namespace OverCR.ExtensionSystem.API.Game
 {
     public static class Keyboard
     {
-        private static List<string> _failedKeys;
+        private static readonly List<string> FailedKeys;
 
         static Keyboard()
         {
-            _failedKeys = new List<string>();
+            FailedKeys = new List<string>();
         }
 
         public static bool GetKeyDown(string key)
@@ -25,9 +24,9 @@ namespace OverCR.ExtensionSystem.API.Game
                     ParseKeyCode(key)
                 );
             }
-            catch (Exception ex) when (!_failedKeys.Contains(key))
+            catch (Exception ex) when (!FailedKeys.Contains(key))
             {
-                _failedKeys.Add(key);
+                FailedKeys.Add(key);
                 Console.WriteLine($"Error occured when processing keycode '{key}': {ex}");
 
                 return false;
@@ -49,9 +48,9 @@ namespace OverCR.ExtensionSystem.API.Game
                     ParseKeyCode(key)
                 );
             }
-            catch (Exception ex) when (!_failedKeys.Contains(key))
+            catch (Exception ex) when (!FailedKeys.Contains(key))
             {
-                _failedKeys.Add(key);
+                FailedKeys.Add(key);
                 Console.WriteLine($"Error occured when processing keycode '{key}': {ex}");
 
                 return false;
@@ -73,9 +72,9 @@ namespace OverCR.ExtensionSystem.API.Game
                     ParseKeyCode(key)
                 );
             }
-            catch (Exception ex) when (!_failedKeys.Contains(key))
+            catch (Exception ex) when (!FailedKeys.Contains(key))
             {
-                _failedKeys.Add(key);
+                FailedKeys.Add(key);
                 Console.WriteLine($"Error occured when processing keycode '{key}': {ex}");
 
                 return false;
