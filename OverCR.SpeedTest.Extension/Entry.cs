@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using OverCR.ExtensionSystem.API.Configuration;
 using OverCR.ExtensionSystem.API.Game;
 using OverCR.ExtensionSystem.API.Runtime;
@@ -17,7 +13,6 @@ namespace OverCR.SpeedTest.Extension
         private bool _enabled;
         private string _toggleKey;
         private Settings _settings;
-
 
         public void WakeUp(IManager manager)
         {
