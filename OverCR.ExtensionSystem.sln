@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverCR.SpeedTest.Extension"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverCR.OnlineNameHider.Extension", "OverCR.OnlineNameHider.Extension\OverCR.OnlineNameHider.Extension.csproj", "{50706C43-0C75-4BCF-A510-6AE5E342D910}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{743640CD-226C-420C-8028-1640B3E4F86C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +62,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CBF2906B-B12E-4870-9C4D-1FAFCB81CE27} = {743640CD-226C-420C-8028-1640B3E4F86C}
+		{8B86AB1E-721B-4709-B69A-3E91C6C5F314} = {743640CD-226C-420C-8028-1640B3E4F86C}
+		{8F90B6CA-E89C-49F0-A5CD-20BDEED35497} = {743640CD-226C-420C-8028-1640B3E4F86C}
+		{4C18EDA2-203B-4F0C-B35D-5E4970F4A2B1} = {743640CD-226C-420C-8028-1640B3E4F86C}
+		{50706C43-0C75-4BCF-A510-6AE5E342D910} = {743640CD-226C-420C-8028-1640B3E4F86C}
 	EndGlobalSection
 EndGlobal
