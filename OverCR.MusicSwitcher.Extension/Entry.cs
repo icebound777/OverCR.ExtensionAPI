@@ -71,7 +71,6 @@ namespace OverCR.MusicSwitcher.Extension
 
                     _settings["MusicWasOn"] = "True";
                 }
-                _settings.Save();
             }
         }
 
@@ -136,7 +135,6 @@ namespace OverCR.MusicSwitcher.Extension
                 return;
             }
             _settings["LastMusicTrackName"] = newTrackName;
-            _settings.Save();
 
             if (_writeSongNameOnScreen)
             {
@@ -149,8 +147,6 @@ namespace OverCR.MusicSwitcher.Extension
         {
             _settings["MusicWasOn"] = Audio.CustomMusicEnabled.ToString();
             _settings["LastMusicTrackName"] = Audio.CurrentCustomSongName;
-
-            _settings.Save();
         }
     }
 }

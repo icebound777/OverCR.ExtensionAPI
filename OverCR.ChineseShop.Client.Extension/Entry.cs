@@ -48,7 +48,6 @@ namespace OverCR.ChineseShop.Client.Extension
                     $"Please read this message, because it won't appear again.\n\nPlug-in enable/disable: {_toggleKey}\nSwitch teams: {_teamSwitchKey}\n\nYou can rebind these keys by editing configuration file."
                 );
                 _settings["ShowActivityDialog"] = "False";
-                _settings.Save();
             }
         }
 
@@ -78,7 +77,6 @@ namespace OverCR.ChineseShop.Client.Extension
                     : " has joined team [FF3B3B]RED[-].");
 
                 _settings["IsBlue"] = _isBlue.ToString();
-                _settings.Save();
             }
         }
 
@@ -108,7 +106,6 @@ namespace OverCR.ChineseShop.Client.Extension
         {
             _enabled = false;
             _settings["ClientSideEnabled"] = "False";
-            _settings.Save();
 
             Local.CarBrokeObject -= Local_CarBrokeObject;
         }
@@ -118,7 +115,6 @@ namespace OverCR.ChineseShop.Client.Extension
         {
             _enabled = true;
             _settings["ClientSideEnabled"] = "True";
-            _settings.Save();
 
             Local.CarBrokeObject += Local_CarBrokeObject;
         }

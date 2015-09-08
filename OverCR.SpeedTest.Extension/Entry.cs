@@ -53,7 +53,7 @@ namespace OverCR.SpeedTest.Extension
 
         public void Shutdown()
         {
-            throw new NotImplementedException();
+
         }
     }
 }
