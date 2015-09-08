@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Reflection;
 using UnityEngine;
 using static System.IO.File;
@@ -16,8 +16,9 @@ namespace OverCR.ExtensionSystem.Bootstrap
             if (!Exists(str))
                 return;
 
-            try {
-                foreach (Type type in Assembly.LoadFrom(str).GetTypes())
+            try
+            {
+                foreach (var type in Assembly.LoadFrom(str).GetTypes())
                 {
                     if (type.FullName == "OverCR.ExtensionSystem.Manager.ExtensionManager")
                     {
@@ -25,7 +26,8 @@ namespace OverCR.ExtensionSystem.Bootstrap
                     }
                     break;
                 }
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine("OverCR: Can't load ExtensionSystem.Manager. No extensibility will be available.");
                 Console.WriteLine(ex);
