@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverCR.ChineseShop.Server.E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverCR.SpeedTest.Extension", "OverCR.SpeedTest.Extension\OverCR.SpeedTest.Extension.csproj", "{4C18EDA2-203B-4F0C-B35D-5E4970F4A2B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverCR.OnlineNameHider.Extension", "OverCR.OnlineNameHider.Extension\OverCR.OnlineNameHider.Extension.csproj", "{50706C43-0C75-4BCF-A510-6AE5E342D910}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{4C18EDA2-203B-4F0C-B35D-5E4970F4A2B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C18EDA2-203B-4F0C-B35D-5E4970F4A2B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C18EDA2-203B-4F0C-B35D-5E4970F4A2B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50706C43-0C75-4BCF-A510-6AE5E342D910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50706C43-0C75-4BCF-A510-6AE5E342D910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50706C43-0C75-4BCF-A510-6AE5E342D910}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50706C43-0C75-4BCF-A510-6AE5E342D910}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
