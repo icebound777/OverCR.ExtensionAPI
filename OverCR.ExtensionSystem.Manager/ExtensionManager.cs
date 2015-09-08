@@ -1,14 +1,14 @@
-﻿using OverCR.ExtensionSystem.API.Runtime;
+using OverCR.ExtensionSystem.API.Runtime;
 using OverCR.ExtensionSystem.Manager.Debugging;
 using OverCR.ExtensionSystem.Manager.Filesystem;
 using OverCR.ExtensionSystem.Manager.Runtime;
 using System;
 using System.IO;
 using System.Collections.Generic;
-using static OverCR.ExtensionSystem.API.Filesystem.Paths;
-using static OverCR.ExtensionSystem.Manager.Filesystem.Initializer;
 using OverCR.ExtensionSystem.API.Configuration;
 using OverCR.ExtensionSystem.API.Game.GUI;
+using static OverCR.ExtensionSystem.API.Filesystem.Paths;
+using static OverCR.ExtensionSystem.Manager.Filesystem.Initializer;
 
 namespace OverCR.ExtensionSystem.Manager
 {
@@ -22,8 +22,9 @@ namespace OverCR.ExtensionSystem.Manager
 
         private List<string> _extensionPathList;
 
-        private bool showWatermark = true;
-        private bool appendExtensionSystemInfo = true;
+        private bool _showWatermark = true;
+        private bool _appendExtensionSystemInfo = true;
+        private bool _showDisclaimer = true;
 
         public Dictionary<string, IExtension> ExtensionRegistry { get; private set; }
 
@@ -42,6 +43,26 @@ namespace OverCR.ExtensionSystem.Manager
                 return;
             }
 
+            if (_showDisclaimer)
+            {
+                MainMenu.Loaded += (sender, args) =>
+                {
+                    Dialog.ShowMessageDialog(
+                        "DISCLAIMER",
+                        "[00A2DF]Distance Extension System[-] is now [00DD00]active[-]. Please note that:\n" +
+                        "- Refract is [FF0000]not liable[-] for any damages caused by mods you use.\n" +
+                        "- Bug reports from modified Distance builds are [FF0000]not supported[-].\n" +
+                        "- By using the Extension System you agree to the above.\n\n" +
+                        "If Distance stops working after extension installation, check the Logs folder for details.",
+                        Dialog.TextAlignment.Left,
+                        () =>
+                        {
+                            _settings["ShowDisclaimer"] = "False";
+                        }
+                    );
+                };
+            }
+
             ScanForExtensions();
             TryLoadExtensions();
 
@@ -49,13 +70,12 @@ namespace OverCR.ExtensionSystem.Manager
                 return;
 
             WakeUpExtensions();
-
             Events.Game.QuitGame.Subscribe(ShutdownExtensions);
 
             SystemLog.WriteLine(Severity.Information, "Extension initialization complete.");
         }
 
-        private void ClearAllLogs()
+        private static void ClearAllLogs()
         {
             foreach (var path in Directory.GetFiles(ExtensionLogDirectory, "*.log"))
             {
@@ -72,25 +92,24 @@ namespace OverCR.ExtensionSystem.Manager
                 if (string.IsNullOrEmpty(_settings["ShowWatermark"]))
                 {
                     _settings["ShowWatermark"] = "True";
-                    _settings.Save();
                 }
 
                 if (string.IsNullOrEmpty(_settings["AppendExtensionSystemInfo"]))
                 {
                     _settings["AppendExtensionSystemInfo"] = "True";
-                    _settings.Save();
                 }
 
-                bool.TryParse(_settings["ShowWatermark"], out showWatermark);
-                bool.TryParse(_settings["AppendExtensionSystemInfo"], out appendExtensionSystemInfo);
+                bool.TryParse(_settings["ShowWatermark"], out _showWatermark);
+                bool.TryParse(_settings["AppendExtensionSystemInfo"], out _appendExtensionSystemInfo);
+                bool.TryParse(_settings["ShowDisclaimer"], out _showDisclaimer);
             }
         }
 
         private void ApplySettings()
         {
-            Watermark.Enabled = showWatermark;
+            Watermark.Enabled = _showWatermark;
 
-            if (appendExtensionSystemInfo)
+            if (_appendExtensionSystemInfo)
                 Watermark.Text += "\ndistance extension system active";
         }
 
@@ -117,6 +136,12 @@ namespace OverCR.ExtensionSystem.Manager
 
         private void WakeUpExtensions()
         {
+            if (ExtensionRegistry == null)
+            {
+                SystemLog.WriteLine(Severity.Information, "No extensions to wake up. Skipping.");
+                return;
+            }
+
             SystemLog.WriteLine(Severity.Information, "Waking up all loaded extensions...");
             foreach (var extension in ExtensionRegistry?.Values)
             {
@@ -134,6 +159,11 @@ namespace OverCR.ExtensionSystem.Manager
 
         private void ShutdownExtensions(Events.Game.QuitGame.Data data)
         {
+            if (ExtensionRegistry == null)
+            {
+                SystemLog.WriteLine(Severity.Information, "No extensions to shut down. Goodbye!");
+                return;
+            }
             SystemLog.WriteLine(Severity.Information, "Shutting down all loaded extensions...");
             foreach(var extension in ExtensionRegistry?.Values)
             {
@@ -151,20 +181,20 @@ namespace OverCR.ExtensionSystem.Manager
 
         public void UpdateExtensions()
         {
-            if (ExtensionRegistry != null)
+            if (ExtensionRegistry == null)
+                return;
+
+            foreach (var extension in ExtensionRegistry?.Values)
             {
-                foreach (var extension in ExtensionRegistry?.Values)
+                try
                 {
-                    try
-                    {
-                        extension.Update();
-                    }
-                    catch (Exception ex)
-                    {
-                        SystemLog.WriteLine(Severity.Failure, "Failed to update an extension.");
-                        SystemLog.WriteLine(Severity.Failure, "Exception: ");
-                        SystemLog.WriteLine(Severity.Failure, $"{ex}");
-                    }
+                    extension.Update();
+                }
+                catch (Exception ex)
+                {
+                    SystemLog.WriteLine(Severity.Failure, "Failed to update an extension.");
+                    SystemLog.WriteLine(Severity.Failure, "Exception: ");
+                    SystemLog.WriteLine(Severity.Failure, $"{ex}");
                 }
             }
         }

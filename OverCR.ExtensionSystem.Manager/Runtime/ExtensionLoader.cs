@@ -1,4 +1,4 @@
-﻿using OverCR.ExtensionSystem.API.Runtime;
+using OverCR.ExtensionSystem.API.Runtime;
 using OverCR.ExtensionSystem.Manager.Debugging;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ namespace OverCR.ExtensionSystem.Manager.Runtime
 {
     internal class ExtensionLoader
     {
-        private List<string> _extensionFilePathList;
+        private readonly List<string> _extensionFilePathList;
 
         internal ExtensionLoader(List<string> extensionFilePathList)
         {
@@ -32,20 +32,29 @@ namespace OverCR.ExtensionSystem.Manager.Runtime
                         continue;
 
                     var extension = Activator.CreateInstance(type) as IExtension;
-                    ExtensionManager.SystemLog.WriteLine(Severity.Information, "Activated an instance of extension:");
-                    ExtensionManager.SystemLog.WriteLine(Severity.Information, $"Extension name: {extension.Name}");
-                    ExtensionManager.SystemLog.WriteLine(Severity.Information, $"Extension author: {extension.Author}");
-                    ExtensionManager.SystemLog.WriteLine(Severity.Information, $"Extension author contact: {extension.Contact}");
 
-                    if (!extensionDictionary.ContainsKey(path))
+                    if (extension != null)
                     {
-                        ExtensionManager.SystemLog.WriteLine(Severity.Information, "Adding extension to the registry...");
-                        extensionDictionary.Add(extension.Name, extension);
+                        ExtensionManager.SystemLog.WriteLine(Severity.Information, "Activated an instance of extension:");
+                        ExtensionManager.SystemLog.WriteLine(Severity.Information, $"Extension name: {extension.Name}");
+                        ExtensionManager.SystemLog.WriteLine(Severity.Information, $"Extension author: {extension.Author}");
+                        ExtensionManager.SystemLog.WriteLine(Severity.Information, $"Extension author contact: {extension.Contact}");
+
+                        if (!extensionDictionary.ContainsKey(path))
+                        {
+                            ExtensionManager.SystemLog.WriteLine(Severity.Information, "Adding extension to the registry...");
+                            extensionDictionary.Add(extension.Name, extension);
+                        }
+                        else
+                        {
+                            ExtensionManager.SystemLog.WriteLine(Severity.Warning, "Extension already exists. How could that happen?");
+                        }
                     }
                     else
                     {
-                        ExtensionManager.SystemLog.WriteLine(Severity.Warning, "Extension already exists. How could that happen?");
+                        ExtensionManager.SystemLog.WriteLine(Severity.Failure, $"Failed loading extension from path: {path}");
                     }
+                    ExtensionManager.SystemLog.WriteLine(Severity.Information, "-------------------------------");
                 }
             }
             return extensionDictionary;
